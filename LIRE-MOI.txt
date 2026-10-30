@@ -1,0 +1,145 @@
+MAQUETTE LOCALE DE L'APPLICATION RH EXISTANTE
+
+Ouvrir : http://127.0.0.1:5181/
+Pour la relancer : double-cliquer DEMARRER-MAQUETTE.cmd ; le navigateur s’ouvre automatiquement.
+Si la maquette tourne déjà, le lanceur la réutilise. Si un autre service utilise le
+port 5181, il choisit un port libre et ouvre la nouvelle adresse.
+Node.js doit être installé. Conserver la fenêtre du lanceur ouverte pendant la consultation.
+
+Écrans repris : tableau de bord, employés et onglets des dossiers, contrats,
+salaires et paramètres disponibles dans le menu de l'application existante.
+Ajout : Paramètres > Types de congés et Politiques de congés.
+Les circuits restent hérités du rattachement ; horaires et jours fériés viennent des paramètres existants.
+La simulation contrôle uniquement le décompte : aucun dépôt de demande, aucune acquisition automatique
+ni calcul de paie. Les conditions libres et créneaux récurrents sont des paramètres de conception.
+Les exemples de demandes sont conservés dans le module de présentation, séparément des anciens écrans de congés.
+
+Données inventées pour la présentation. Aucune connexion au backend, à PostgreSQL
+ou au Core Tenant. Aucune lecture du stockage de l'application réelle.
+Les actions simulent des changements en mémoire : recharger remet la maquette à zéro.
+Les pièces choisies restent en mémoire dans le navigateur, sans envoi.
+Cette version n'applique pas toutes les validations métier du backend réel.
+
+Organisation :
+- src/ et public/ : copie des interfaces existantes, adaptée uniquement ici.
+- src/maquette/ : données fictives et service local.
+- dist/ : version compilée utilisée par le lanceur, sans dépendance à l'application réelle.
+- servir-maquette.mjs : petit serveur local, limité à 127.0.0.1.
+- node_modules : lien technique vers les dépendances du projet original pour compiler.
+
+Pour développer : npm run dev -- --host 127.0.0.1 --port 5182
+Pour recompiler après modification : npm run build
+Si le dossier est déplacé et que le lien node_modules n'est plus valide : npm install.
+
+Le code du projet original RH_Plateforme-/FrontendRH n'est pas modifié.
+
+INTERFACES SIMPLIFIEES — TYPES ET POLITIQUES
+Types : libellé, unité, demi-journées, couleur et état. Code automatique.
+Politiques : type, bénéficiaires, limite éventuelle, justificatif, date d’effet.
+Les réglages complémentaires sont repliés dans « Plus d’options ».
+Le test de calcul a été retiré des politiques de congés.
+Il utilise la version enregistrée et ne contrôle ni quotas ni justificatifs.
+Les limites par événement sont des plafonds par demande, sans compteur annuel.
+Les conditions textuelles restent descriptives. La maquette ne dépose pas de demandes réelles.
+
+MODULES DE LA SOCIETE
+Paramètres > Modules de la société : activation des contrats, de la rémunération et du paramétrage des congés. Personnel : socle obligatoire. Calendrier et pointage : à venir.
+Modification par permission modules_societe.modifier. Enregistrement explicite, confirmation avant désactivation, historique par société. Réglages en mémoire, réinitialisés au rechargement.
+Les accès des menus, paramètres, onglets de fiche et indicateurs concernés suivent les modules. Une route désactivée affiche un message. Cette maquette ne remplace pas les contrôles serveur d’une application réelle.
+
+
+OPTIONS PAR SOCIETE
+N° interne : activation du champ, de la colonne et du filtre. Lien Configurer pour le rendre obligatoire dans le formulaire et l’édition directe du champ. Saisie manuelle, matricule automatique conservé.
+Sans solde et autorisations : activation pour les nouvelles demandes de démonstration ; types, politiques et historiques conservés et signalés lorsque désactivés.
+La présence est couverte par les fonctions solo et groupe de la gestion intérim.
+Les sous-options dépendent des Congés et absences. Leur choix reste mémorisé dans la session lorsque le parent est désactivé.
+Le processus complet de demande et les contrôles serveur restent à intégrer. Les réglages sont remis à zéro au rechargement.
+
+L’écran et l’option séparés Règles de présence ont été retirés. La gestion d’intérim reste dans Paramètres > Fonctions (solo et groupe).
+
+Le réglage N° interne obligatoire est maintenant intégré à Modules de la société, sous son interrupteur. L’onglet et le lien Configurer séparés ont été retirés.
+
+
+ATTESTATIONS DE TRAVAIL — 30/10/2026
+Paramètres > Modèles de documents : texte pour contrat en cours ou terminé,
+étiquettes automatiques, en-tête, logo PNG/JPEG, société, lieu et signataires.
+Documents RH > Mes demandes de documents : demander et suivre ses attestations.
+Documents RH > Demandes d’attestation : préparer, refuser avec motif, générer,
+télécharger un PDF, ouvrir la vue impression et marquer la remise.
+Le dossier employé > Documents propose aussi les liens de préparation.
+La date de délivrance de la CIN est disponible dans la fiche employé.
+Le document généré conserve ses données et sa version du modèle.
+Permissions séparées : demander, voir ses demandes, traiter, générer,
+imprimer/PDF, consulter/modifier les modèles, dans Rôles et permissions.
+Option Attestations de travail dans Modules de la société.
+Exemples fictifs : deux signataires et un ancien CDD de Youssef Trabelsi.
+Signature et cachet manuels ; aucune signature électronique.
+PDF local avec pdf-lib (licence dans src/vendor/pdf-lib-LICENSE.md).
+La vue impression peut servir pour les textes non pris en charge par les
+polices du PDF local. Aucun document envoyé à un service externe.
+Tout reste en mémoire : un rechargement réinitialise demandes et modèles.
+Exemple PDF : exemple-attestation-travail-2026-10-30.pdf.
+
+MODELE SIMPLIFIE — 30/10/2026
+Deux choix visibles : Contrat en cours / Contrat terminé.
+Les phrases se modifient directement sur la feuille du document.
+Les informations automatiques sont affichées en encadrés bleus lisibles.
+Le bouton + Information automatique insère une information au curseur.
+Les informations obligatoires supprimées sont signalées avant enregistrement.
+Texte standard rétablit uniquement le texte de la situation sélectionnée.
+Société, lieu et signataire restent accessibles ; logo, adresse, coordonnées
+du signataire et réglages secondaires sont repliés.
+Enregistrer les deux textes conserve les deux situations ensemble.
+
+DOCUMENT COMPLET PERSONNALISABLE — PRESENTATION FOURNIE
+Les deux situations disposent maintenant de toute la page éditable : lieu/date,
+société, salarié/CIN, titre sur fond gris, corps et signature.
+Cliquez dans une zone pour modifier son texte. La barre permet alignement,
+taille, gras, fond gris, espacement, ajout, déplacement et suppression de zones.
+Chaque zone conserve les informations automatiques sous forme de pastilles.
+Adresse société, matricule fiscal et civilité sont disponibles à insertion.
+Les informations obligatoires peuvent être déplacées ; leur absence bloque
+la sauvegarde et indique ce qui manque. Les PDF et impressions reprennent
+les zones enregistrées, sans en-tête ou signature supplémentaire imposé.
+Les mentions de démonstration restent affichées dans cette maquette.
+
+PARCOURS ATTESTATION SIMPLIFIE
+Employé : Demander mon attestation, message facultatif, puis suivi.
+RH : ouvrir Préparer, vérifier contrat/date, Continuer vers aperçu,
+Confirmer le document, puis télécharger/imprimer et confirmer la remise.
+La fonction, le lieu et le signataire sont préremplis et modifiables dans
+une section repliée. Historique, refus et paramétrage sont secondaires.
+La sélection du modèle en cours/terminé reste automatique selon le contrat.
+Les modèles de démonstration incluent une adresse et un matricule fiscal
+explicitement fictifs, à personnaliser avant un usage réel.
+
+SAISIE AVEC OU SANS APERCU
+Statuts : Demandée, Prête à remettre, Remise, ou Refusée avec motif.
+Le statut En préparation est supprimé, y compris des transitions.
+Avant confirmation : contrat, date, fonction, lieu et signataire modifiables.
+Afficher le document ouvre un aperçu en direct à côté du formulaire.
+Masquer le document conserve toutes les valeurs et permet la saisie seule.
+La confirmation est possible dans les deux modes ; elle fige le document
+et passe directement à Prête à remettre. Le modèle suit toujours le contrat.
+
+ATTESTATION POUR ANCIEN SALARIE
+Préparer pour un employé inclut tous les salariés, y compris les inactifs.
+Le filtre Anciens salariés / employés inactifs facilite leur recherche.
+Exemple fictif ajouté : Nadia Ben Amor, CDD du 01/03/2022 au 30/09/2025,
+aucun contrat en cours. Son contrat terminé est repris automatiquement.
+Le document emploie a travaillé du début à la fin, avec date attestation actuelle.
+Une date de fin absente pour un contrat TERMINE bloque la génération.
+Les contrats historiques sont utilisables sans réactiver le salarié.
+
+PARTAGE SUR LE WI-FI LOCAL
+Adresse au démarrage du partage : http://192.168.3.52:5183/
+Lanceur : DEMARRER-MAQUETTE-WIFI.cmd (le lanceur habituel reste local).
+Le serveur Wi-Fi écoute uniquement sur la carte Wi-Fi et refuse les adresses
+hors de son sous-réseau. Il sert uniquement dist/, sans backend réel.
+Le PC doit rester allumé et connecté au même Wi-Fi. Si son adresse IP change,
+relancer le lanceur Wi-Fi pour utiliser sa nouvelle adresse.
+Le serveur utilise le port 5183 ; un autre service à ce port est signalé.
+L’autorisation TCP Node.js existante du pare-feu Windows est utilisée.
+Les données restent indépendantes dans chaque navigateur et sont remises
+à zéro au rechargement : les participants ne partagent pas une base de données.
+Correction accès Wi-Fi : les clients des réseaux privés 192.168.x.x, 10.x.x.x et 172.16 à 172.31 sont acceptés, y compris entre sous-réseaux routés. Les erreurs réseau sont désormais servies en UTF-8. Le serveur reste lié uniquement à la carte Wi-Fi.

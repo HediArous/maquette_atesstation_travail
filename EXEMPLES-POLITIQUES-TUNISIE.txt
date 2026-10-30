@@ -1,0 +1,29 @@
+EXEMPLES DE POLITIQUES — 27/10/2026
+
+La maquette contient 10 types et 11 politiques.
+Les nouvelles politiques sont en brouillon. Elles ne constituent pas une validation de l’éligibilité ou de la paie.
+
+MODELES ISSUS DU TEXTE LEGAL
+Prénatal : maximum 15 jours dans le dernier mois de grossesse, certificat médical (article 3).
+Paternité : cas général 7 jours dans les 30 jours suivant la naissance (article 5). Les variantes de 10 et 3 jours sont expliquées dans la fiche, sans cumul automatique.
+Postnatal : cas général 3 mois (article 4). Les variantes de 4 et 1 mois sont expliquées dans la fiche. Pas de conversion en 90 jours.
+Affiliation et déclaration sociales : article 1. Conditions particulières contrôlées par RH, non automatisées dans la maquette.
+Source : JORT n° 99 du 12 août 2024, loi n° 2024-44, pages 2215-2216.
+https://www.jurisitetunisie.com/download_jort.php?f=L2024_0044-F2024_099.pdf
+
+EXEMPLES INTERNES A ADAPTER
+Congé annuel : quotas fictifs Administration 24 jours et Production 18 jours, conservés pour démonstration ; pas un barème général tunisien.
+Mariage : 3 jours fictifs par événement ; remplacer selon dispositions applicables.
+Décès : durée à définir selon lien familial et dispositions applicables.
+Maladie : déclaration et justificatif ; absence de plafond dans la démonstration ne signifie pas droit légal illimité.
+Sans solde : conditions et durée sur accord selon dispositions applicables.
+Autorisation de sortie : plafond fictif de 120 minutes par mois.
+Récupération : suivi en minutes, heures à valider, aucun solde réel calculé.
+
+UNITES
+Le type fixe la nature de la demande : jours ou créneau horaire.
+La politique affiche son unité explicitement : jours/mois pour un type en jours, minutes pour un type horaire.
+Changer de type ou d’unité vide la durée pour éviter de transformer 120 minutes en 120 jours.
+120 minutes = 2 heures. Les minutes sont entières.
+Les mois restent des mois, sans conversion automatique. Le contrôle des dates de fin en mois reste à intégrer.
+La simulation ne contrôle ni quotas, ni justificatifs, ni regroupement des demandes par événement.
